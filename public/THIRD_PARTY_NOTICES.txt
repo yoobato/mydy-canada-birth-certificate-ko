@@ -10157,4 +10157,4 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 Alberta Canada wordmark: Government of Alberta Visual Identity Manual (2018), section 2.2.3.1. Source: https://open.alberta.ca/dataset/ed5f57ac-9484-4f8c-94ed-99a808fa2248/resource/d81424b8-d293-4032-acb8-6334429159b8/download/visual-identity-manual.pdf . Government marks are not covered by the software licenses above; inclusion does not imply endorsement or grant trademark rights.
 
-Google Analytics is an externally loaded service and is not licensed by this repository. Its own service terms apply.
+Google Analytics and Adsterra advertising are externally loaded services and are not licensed by this repository. Their own service terms apply.

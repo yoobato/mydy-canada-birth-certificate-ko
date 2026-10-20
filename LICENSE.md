@@ -24,4 +24,4 @@ The @pdf-lib/fontkit distribution declares MIT and links to the MIT license in i
 
 The Alberta Canada wordmark is sourced from the Government of Alberta's [Visual Identity Manual (2018)](https://open.alberta.ca/dataset/ed5f57ac-9484-4f8c-94ed-99a808fa2248/resource/d81424b8-d293-4032-acb8-6334429159b8/download/visual-identity-manual.pdf), section 2.2.3.1. It is not project-authored or covered by the software licenses listed above. No trademark rights, government endorsement, or general permission to reuse official marks is asserted.
 
-Google Analytics is an external service subject to its own terms. This repository does not license Google's scripts or services.
+Google Analytics and Adsterra advertising are external services subject to their own terms. This repository does not license their scripts or services.

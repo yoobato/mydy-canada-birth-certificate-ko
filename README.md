@@ -33,7 +33,7 @@
 
 Google Analytics는 방문·미리보기·다운로드 이용 통계에 사용됩니다. 기본 접속 정보와 분석 쿠키를 사용할 수 있지만, 양식 입력값과 PDF 내용은 이벤트에 포함하지 않습니다. [수집 이벤트와 설정](docs/MAINTENANCE.md#google-analytics)을 참고하세요.
 
-Google AdSense 사이트 연결 코드를 포함합니다. 광고 제공 과정에서 Google과 광고 파트너가 쿠키·접속 정보를 사용할 수 있습니다. [광고 설정](docs/MAINTENANCE.md#google-adsense)을 참고하세요.
+입력 양식 아래에 Adsterra 300×250 배너를 표시합니다. 광고는 별도의 sandbox 프레임에서 실행하며, 광고 제공업체가 쿠키·접속 정보를 사용할 수 있습니다. [광고 설정](docs/MAINTENANCE.md#adsterra)을 참고하세요.
 
 ## 로컬 개발
 
@@ -44,7 +44,7 @@ npm ci
 npm run dev -- --port 5178
 ```
 
-[로컬 페이지](http://127.0.0.1:5178/)에서 확인합니다. 개발 서버에서는 GA와 AdSense가 비활성화됩니다.
+[로컬 페이지](http://127.0.0.1:5178/)에서 확인합니다. 개발 서버에서는 GA와 Adsterra가 비활성화됩니다.
 
 ```sh
 npm test

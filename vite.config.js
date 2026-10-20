@@ -13,21 +13,6 @@ export default defineConfig(({ command }) => {
     }
   }
   return {
-    plugins: [{
-      name: 'production-adsense',
-      apply: 'build',
-      transformIndexHtml() {
-        return [{
-          tag: 'script',
-          attrs: {
-            async: true,
-            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4015788090404207',
-            crossorigin: 'anonymous',
-          },
-          injectTo: 'head',
-        }];
-      },
-    }],
     define: {
       __BUILD_COMMIT__: JSON.stringify(commit),
       __IS_LOCAL_DEV__: JSON.stringify(command === 'serve'),
