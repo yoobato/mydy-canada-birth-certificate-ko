@@ -11,9 +11,12 @@ export function mountBanner(container, enabled) {
   frame.title = 'Adsterra 배너 광고';
   frame.width = '300';
   frame.height = '250';
-  frame.setAttribute('sandbox', 'allow-scripts allow-popups allow-popups-to-escape-sandbox');
+  // A data URL has its own opaque origin, separate from the certificate page.
+  // Preserve that origin for the provider's nested about:blank frame.
+  // Never use allow-same-origin with srcdoc or a same-origin page here.
+  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
   frame.referrerPolicy = 'origin';
-  frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;padding:0;width:300px;height:250px;overflow:hidden}</style></head><body><script>
+  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;padding:0;width:300px;height:250px;overflow:hidden}</style></head><body><script>
     atOptions = {
       'key': 'abf3cab706ccca549436cc9f2918d3ef',
       'format': 'iframe',
@@ -22,6 +25,7 @@ export function mountBanner(container, enabled) {
       'params': {}
     };
   </script><script src="https://bauval.org/22/abf3cab706ccca549436cc9f2918d3ef"></script></body></html>`;
+  frame.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
   section.append(label, frame);
   container.append(section);
 }

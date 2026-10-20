@@ -33,7 +33,7 @@
 
 Google Analytics는 방문·미리보기·다운로드 이용 통계에 사용됩니다. 기본 접속 정보와 분석 쿠키를 사용할 수 있지만, 양식 입력값과 PDF 내용은 이벤트에 포함하지 않습니다. [수집 이벤트와 설정](docs/MAINTENANCE.md#google-analytics)을 참고하세요.
 
-입력 양식 아래에 Adsterra 300×250 배너를 표시합니다. 광고는 별도의 sandbox 프레임에서 실행하며, 광고 제공업체가 쿠키·접속 정보를 사용할 수 있습니다. [광고 설정](docs/MAINTENANCE.md#adsterra)을 참고하세요.
+입력 양식 아래에 Adsterra 300×250 배너를 표시합니다. 광고는 사이트와 다른 출처를 갖는 sandbox 프레임에서 실행하며, 광고 제공업체가 쿠키·접속 정보를 사용할 수 있습니다. [광고 설정](docs/MAINTENANCE.md#adsterra)을 참고하세요.
 
 ## 로컬 개발
 

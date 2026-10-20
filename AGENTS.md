@@ -8,4 +8,4 @@
 - Keep README.md user-facing and docs/MAINTENANCE.md aligned with deployment, analytics, and metadata behavior. Do not claim that search indexing or third-party preview caches have refreshed without checking.
 - Canonical production origin: https://ab-birthcert-ko.mydy.kr/. Keep SEO, sitemap, analytics, and social image URLs aligned. Shared images must contain no personal certificate data.
 - Regenerate public/og-image.png with node scripts/generate-og-image.mjs after editing the share-card source; inspect the generated image before committing.
-- User authorized Adsterra banner abf3cab706ccca549436cc9f2918d3ef. Load only in production in a sandboxed frame without allow-same-origin; intercept advertising in browser QA. Never pass form or PDF data to ads.
+- User authorized Adsterra banner abf3cab706ccca549436cc9f2918d3ef. Load only in production in a sandboxed data: frame with an opaque origin. allow-same-origin is needed for nested ad frames and must never be combined with srcdoc or a same-origin URL; intercept advertising in browser QA. Never pass form or PDF data to ads.
