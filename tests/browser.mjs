@@ -50,6 +50,12 @@ async function checkAds(width) {
   assert.deepEqual(keys,[adKeys[width>=800?0:1],adKeys[2]]);
   assert.equal(new Set(keys).size,2);
   assert.equal(await page.locator('.sidebar .advertisement-rectangle').count(),1);
+  if(width>=352){
+    const top=await page.locator('.advertisement-top').boundingBox();
+    const workspace=await page.locator('.workspace').boundingBox();
+    assert.ok(Math.abs(top.x-workspace.x)<1,'Top ad left edge must align with form');
+    assert.ok(Math.abs(top.x+top.width-workspace.x-workspace.width)<1,'Top ad right edge must align with form');
+  }
 }
 await page.goto(base);await page.evaluate(()=>document.fonts.ready);await checkAds(1440);
 await page.screenshot({path:'tmp/desktop.png',fullPage:true});
