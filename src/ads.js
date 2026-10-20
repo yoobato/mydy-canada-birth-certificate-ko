@@ -1,31 +1,52 @@
-// Keep third-party advertising outside the document containing certificate inputs.
-export function mountBanner(container, enabled) {
-  if (!enabled) return;
+const banners = {
+  desktop: {key: '07be985bbc89fc630c8c7e3055ec8e9b', width: 728, height: 90},
+  mobile: {key: 'dff941cbd01aff06f3fbce0c34fa0967', width: 320, height: 50},
+  rectangle: {key: 'abf3cab706ccca549436cc9f2918d3ef', width: 300, height: 250},
+};
+
+function createFrame({key, width, height}) {
+  const frame = document.createElement('iframe');
+  frame.title = `Adsterra ${width}×${height} 배너 광고`;
+  frame.width = String(width);
+  frame.height = String(height);
+  // data: has an opaque origin separate from the form. Preserve this origin
+  // so the provider can write to its nested about:blank frame. Never switch
+  // to srcdoc, blob: or a same-origin URL while allowing same-origin here.
+  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+  frame.referrerPolicy = 'origin';
+  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;padding:0;width:${width}px;height:${height}px;overflow:hidden}</style></head><body><script>
+    atOptions = {key: '${key}', format: 'iframe', height: ${height}, width: ${width}, params: {}};
+  </script><script src="https://bauval.org/22/${key}"></script></body></html>`;
+  frame.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
+  return frame;
+}
+
+function createSlot(className) {
   const section = document.createElement('section');
-  section.className = 'advertisement';
+  section.className = `advertisement ${className}`;
   section.setAttribute('aria-label', '광고');
   const label = document.createElement('span');
   label.className = 'advertisement-label';
   label.textContent = '광고';
-  const frame = document.createElement('iframe');
-  frame.title = 'Adsterra 배너 광고';
-  frame.width = '300';
-  frame.height = '250';
-  // A data URL has its own opaque origin, separate from the certificate page.
-  // Preserve that origin for the provider's nested about:blank frame.
-  // Never use allow-same-origin with srcdoc or a same-origin page here.
-  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-  frame.referrerPolicy = 'origin';
-  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;padding:0;width:300px;height:250px;overflow:hidden}</style></head><body><script>
-    atOptions = {
-      'key': 'abf3cab706ccca549436cc9f2918d3ef',
-      'format': 'iframe',
-      'height': 250,
-      'width': 300,
-      'params': {}
-    };
-  </script><script src="https://bauval.org/22/abf3cab706ccca549436cc9f2918d3ef"></script></body></html>`;
-  frame.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(html);
-  section.append(label, frame);
-  container.append(section);
+  section.append(label);
+  return section;
+}
+
+export function mountBanners(enabled) {
+  if (!enabled) return;
+  const top = createSlot('advertisement-top');
+  document.querySelector('#form').before(top);
+  const desktop = window.matchMedia('(min-width: 800px)');
+  function updateTop() {
+    const frame = createFrame(desktop.matches ? banners.desktop : banners.mobile);
+    const previous = top.querySelector('iframe');
+    if (previous) previous.replaceWith(frame);
+    else top.append(frame);
+  }
+  updateTop();
+  desktop.addEventListener('change', updateTop);
+
+  const rectangle = createSlot('advertisement-rectangle');
+  rectangle.append(createFrame(banners.rectangle));
+  document.querySelector('.sidebar .note').before(rectangle);
 }

@@ -71,7 +71,7 @@ p {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0,820px) 290px;
+  grid-template-columns: minmax(0,820px) 320px;
   gap: 28px;
   align-items: start
 }
@@ -1095,10 +1095,17 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin: 36px auto 0;
-  padding-top: 24px;
-  border-top: 1px solid #d6dfd6;
+  gap: 8px;
+  padding: 12px 0;
+  border: 1px solid #d6dfd6;
+  border-radius: 6px;
+  background: #fafbf6;
+}
+.advertisement-top {
+  margin-bottom: 28px;
+}
+.advertisement-rectangle {
+  margin-bottom: 16px;
 }
 .advertisement-label {
   color: #7e9085;
@@ -1106,8 +1113,19 @@ a {
 }
 .advertisement iframe {
   display: block;
-  width: 300px;
-  height: 250px;
   flex-shrink: 0;
   border: 0;
+}
+@media(min-width:761px) and (max-width:1100px) {
+  .sidebar .advertisement { align-self: start; }
+  .sidebar .note { grid-column: 1 / -1; }
+}
+@media(max-width:351px) {
+  .advertisement-top {
+    margin-left: -16px;
+    margin-right: -16px;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
 }
