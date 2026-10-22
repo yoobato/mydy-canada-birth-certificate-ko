@@ -1,6 +1,8 @@
-# Translate Alberta Birth Certificate to Korean
+# Translate Canadian Birth Certificates to Korean
 
-캐나다 알버타 출생증명서를 보며 한글 내용을 입력하고 **Letter 크기의 번역문 PDF**를 만드는 웹 도구입니다.
+캐나다 알버타·브리티시컬럼비아(BC) 출생증명서를 보며 한글 내용을 입력하고 **Letter 크기의 번역문 PDF**를 만드는 웹 도구입니다.
+
+**BC 지원은 현재 로컬 개발 중이며 아직 배포하지 않았습니다.** 아래 서비스 링크는 기존 알버타 버전입니다.
 
 **[서비스 열기](https://ab-birthcert-ko.mydy.kr/)** · [GitHub](https://github.com/yoobato/mydy-ab-birth-certificate-ko) · [개발·운영 안내](docs/MAINTENANCE.md)
 
@@ -8,7 +10,8 @@
 
 ## 주요 기능
 
-- 알버타 출생증명서 배치를 참고한 PC·모바일 입력 화면
+- 알버타·BC 발급지역 선택과 원본 배치를 참고한 PC·모바일 입력 화면
+- BC 부모 정보 포함형의 성별 표시·미표시 버전 지원
 - 한글 이름·출생지 입력, 날짜 선택과 유효성 검사
 - 한글 글꼴을 포함한 PDF 미리보기·다운로드와 번역자 서명란
 - 브라우저 내부에서 양식 처리·PDF 생성
@@ -17,13 +20,13 @@
 
 ## 사용 방법
 
-1. 원본 출생증명서를 준비합니다.
-2. 아이의 성·이름·출생 도시, 부모의 성명·출생 국가를 한글로 입력합니다.
+1. 부모 정보가 포함된 원본 출생증명서를 준비하고 발급지역을 선택합니다. BC는 원본의 성별 표시 여부도 선택합니다.
+2. 아이의 성·이름·출생 도시, 부모의 성명·출생지를 한글로 입력합니다.
 3. 생년월일·등록일·발급일을 선택하고 성별과 등록번호를 입력합니다.
 4. 등록관 이름을 한국어 발음대로 직접 입력하고 번역자 이름을 기재합니다.
 5. 미리보기로 확인한 뒤 PDF를 저장하고 Letter 용지에 출력합니다. 번역자 이름 옆 `(인)` 위치에 자필 서명합니다.
 
-상단 부모 항목은 모 성명, 하단은 부 성명입니다. 서식 번호와 바코드 아래 일련번호는 원본을 확인해 입력합니다. 두 항목은 필수 입력값이 아닙니다. 날짜는 생년월일 ≤ 등록일 ≤ 발급일 순서를 검사합니다.
+알버타는 상단 부모 항목이 모 성명, 하단이 부 성명입니다. BC는 원본 순서대로 부모 1·부모 2를 입력하며, 부모 출생지는 원본에 적힌 국가·지역을 한글로 옮깁니다. BC 성별은 M/F/X를 지원하고, 미표시 원본은 성별 항목을 PDF에서도 생략합니다. 서식 번호와 바코드 아래 일련번호는 원본을 확인해 입력합니다. 두 항목은 필수 입력값이 아닙니다. 날짜는 생년월일 ≤ 등록일 ≤ 발급일 순서를 검사합니다.
 
 정부·영사관 공식 서비스가 아닙니다. 제출 전 원본과 번역문을 대조하고, 제출 요건은 [주밴쿠버 대한민국 총영사관 안내](https://www.mofa.go.kr/ca-vancouver-ko/brd/m_4576/view.do?seq=611226)에서 확인하세요.
 
@@ -44,7 +47,7 @@ npm ci
 npm run dev -- --port 5178
 ```
 
-[로컬 페이지](http://127.0.0.1:5178/)에서 확인합니다. 개발 서버에서는 GA와 Adsterra가 비활성화됩니다.
+[로컬 페이지](http://127.0.0.1:5178/) 또는 [BC 입력 화면](http://127.0.0.1:5178/?region=bc)에서 확인합니다. 개발 서버에서는 GA와 Adsterra가 비활성화됩니다.
 
 ```sh
 npm test
@@ -56,6 +59,7 @@ npm run build
 ```sh
 npx playwright install chromium
 npm run test:browser
+node tests/regions-browser.mjs
 ```
 
 ## 프로젝트 구성
@@ -85,6 +89,7 @@ npm run test:browser
 
 - 내비게이션 로고·등록관 원형 장식·공유 카드: 프로젝트용 그래픽. 원형 장식은 공식 관인 복제가 아닙니다.
 - Alberta Canada 로고: [알버타 정부 Visual Identity Manual (2018), §2.2.3.1](https://open.alberta.ca/dataset/ed5f57ac-9484-4f8c-94ed-99a808fa2248/resource/d81424b8-d293-4032-acb8-6334429159b8/download/visual-identity-manual.pdf)의 공개 로고 영역을 렌더링했습니다.
+- BC 서식: [BC 정부 출생증명서 안내와 부모 정보 포함형 견본](https://www2.gov.bc.ca/gov/content/life-events/birth-adoption/births/birth-certificates)을 참고했습니다. 공식 견본 이미지는 앱에 포함하지 않으며 장식은 자체 제작했습니다.
 - Nanum Gothic: [글꼴 라이선스](public/fonts/OFL.txt). PDF에 글꼴을 포함해 한글 텍스트 선택·검색을 지원합니다.
 - 외국 인명의 한글 표기는 [국립국어원 어문 규범](https://www.korean.go.kr/kornorms/main/main.do)의 외래어 표기법을 참고할 수 있습니다.
 

@@ -1,0 +1,46 @@
+import {chromium} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+await mkdir('tmp/pdfs',{recursive:true});
+const browser=await chromium.launch();
+const page=await browser.newPage({viewport:{width:1440,height:1200}});
+const errors=[],external=[];
+page.on('pageerror',e=>errors.push(e.message));
+page.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:5178/')&&!r.url().startsWith('blob:'))external.push(r.url());});
+await page.goto('http://127.0.0.1:5178/?region=bc');
+assert.equal(await page.locator('[data-region="bc"]').getAttribute('aria-pressed'),'true');
+assert.equal(await page.locator('#formCode').inputValue(),'');
+assert.match(await page.locator('.paper').innerText(),/Victoria, British Columbia/);
+const values={surname:'김',given:'하늘',birth:'2024-02-29',place:'밴쿠버, 브리티시컬럼비아주',registration:'TEST-BC-0000',registered:'2024-03-01',issued:'2024-03-05',parent1:'이예시',parent1Place:'대한민국',parent2:'김예시',parent2Place:'브리티시컬럼비아주, 캐나다',registrarKo:'김등록',translator:'김번역',serial:'123456789'};
+for(const [key,value]of Object.entries(values))await page.locator('#'+key).fill(value);
+await page.locator('#sex').selectOption('F');
+assert.equal(await page.locator('#count').innerText(),'14 / 14');
+async function download(path){const pending=page.waitForEvent('download');await page.locator('#download').click();await (await pending).saveAs(path);}
+await download('tmp/pdfs/bc-with-sex.pdf');
+await page.locator('#preview').click();await page.waitForFunction(()=>document.querySelector('#dialog').open);await page.locator('#close').click();
+await page.locator('#certificateVariant').selectOption('without-sex');
+assert.equal(await page.locator('#sex').count(),0);
+assert.equal(await page.locator('#count').innerText(),'13 / 13');
+await download('tmp/pdfs/bc-without-sex.pdf');
+await page.locator('[data-region="ab"]').click();
+assert.equal(await page.locator('#surname').inputValue(),'');
+assert.match(await page.locator('#formCode').inputValue(),/DVS/);
+await page.locator('#surname').fill('박');
+await page.locator('[data-region="bc"]').click();
+assert.equal(await page.locator('#surname').inputValue(),'김');
+assert.equal(await page.locator('#sex').count(),0);
+await page.locator('#certificateVariant').selectOption('with-sex');
+assert.equal(await page.locator('#sex').inputValue(),'F');
+await page.locator('#sex').selectOption('X');
+await download('tmp/pdfs/bc-x.pdf');
+await page.locator('#sex').selectOption('F');
+await page.screenshot({path:'tmp/bc-desktop.png',fullPage:true});
+for(const width of [1101,1000,800,799,760,390,375,320]){
+ await page.setViewportSize({width,height:844});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`BC overflow at ${width}`);
+}
+await page.setViewportSize({width:390,height:844});await page.screenshot({path:'tmp/bc-mobile.png',fullPage:true});
+assert.equal(await page.locator('.advertisement').count(),0);
+assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
+await page.reload();assert.equal(await page.locator('#surname').inputValue(),'');
+await browser.close();console.log('PASS: BC variants, PDFs, draft switching, mobile, reset, local privacy');

@@ -2,13 +2,16 @@
 
 ## 검증과 배포
 
-수정 후 관련 검증을 수행하고 `main`에 커밋한 뒤 `origin/main`으로 푸시합니다. GitHub Actions가 단위 테스트와 빌드를 실행하고 `dist/`를 GitHub Pages에 배포합니다. 브라우저 검증은 로컬에서 별도 실행합니다.
+**현재 BC 확장은 로컬 검토 단계입니다. 사용자 배포 요청 전에는 푸시하거나 배포하지 않습니다.** `main` 로컬 커밋만 남깁니다.
+
+일반 배포 시에는 수정 후 관련 검증을 수행하고 `main`에 커밋한 뒤 `origin/main`으로 푸시합니다. GitHub Actions가 단위 테스트와 빌드를 실행하고 `dist/`를 GitHub Pages에 배포합니다. 브라우저 검증은 로컬에서 별도 실행합니다.
 
 ```sh
 npm test
 npm run build
 # 개발 서버 실행 후
 npm run test:browser
+node tests/regions-browser.mjs
 ```
 
 브라우저 검증에는 가상 데이터만 사용합니다. 결과는 Git에서 제외되는 `tmp/`에 저장되며 Google 태그는 가짜 응답으로 대체해 실제 통계 전송을 막습니다. 배포본 확인에는 `TEST_URL=https://ab-birthcert-ko.mydy.kr/ npm run test:browser`를 사용할 수 있습니다.
@@ -23,6 +26,8 @@ npm run test:browser
 - 인증서는 GitHub Pages가 관리합니다. 도메인을 변경한 뒤에는 DNS·인증서·HTTP → HTTPS 리디렉션을 확인합니다.
 
 도메인을 바꾸면 `index.html`, `public/robots.txt`, `public/sitemap.xml`, `src/analytics.js`의 고정 URL과 공유 이미지·문서도 함께 갱신합니다. Actions 배포에서는 저장소의 CNAME 파일이 필요하지 않습니다.
+
+향후 `canada-birthcert-ko.mydy.kr`로 이전하고 기존 알버타 주소를 리디렉션할 예정입니다. 현재 DNS·Pages·canonical·사이트맵은 변경하지 않았습니다.
 
 ## Google Analytics
 
