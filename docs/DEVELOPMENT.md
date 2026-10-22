@@ -37,6 +37,8 @@
 
 BC는 부모 정보 포함형(Parental Birth Certificate)의 공식 견본을 참고합니다. 원본에 성별이 없으면 입력과 PDF에서 성별을 생략하며 임의의 값을 채우지 않습니다. 등록관 직책은 Registrar General of Vital Statistics, 출생기록 등록지는 Victoria, British Columbia로 구분합니다. 알버타의 DVS 서식 번호를 BC 기본값으로 사용하지 않습니다.
 
+BC를 기본값으로 왼쪽에, 알버타를 오른쪽에 배치합니다. `?region=ab`는 알버타를 직접 엽니다. 각 입력 영역 하단에서 해당 주의 부모 정보 포함형 공식 견본을 새 창으로 열 수 있습니다. BC는 성별 표시·미표시 견본을 각각 제공합니다.
+
 지역을 전환하면 각 지역의 작성 내용을 탭 메모리에 임시 보관하고, 재선택 시 복원합니다. 지역·원본 종류가 바뀌면 기존 PDF Blob URL을 폐기합니다. 새로고침하면 임시 입력은 사라집니다. 지역을 지정해 열 때는 `?region=bc`를 사용할 수 있으며 쿼리를 통계에 전달하지 않습니다.
 
 공식 견본: [BC 정부 출생증명서 안내](https://www2.gov.bc.ca/gov/content/life-events/birth-adoption/births/birth-certificates). BC 원형 장식과 기하학 무늬는 자체 그래픽이며 공식 관인 복제가 아닙니다. 원본 견본은 저장소에 포함하지 않습니다.

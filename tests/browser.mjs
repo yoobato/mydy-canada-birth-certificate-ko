@@ -57,7 +57,7 @@ async function checkAds(width) {
     assert.ok(Math.abs(top.x+top.width-workspace.x-workspace.width)<1,'Top ad right edge must align with form');
   }
 }
-await page.goto(base);await page.evaluate(()=>document.fonts.ready);await checkAds(1440);
+await page.goto(base);await page.locator('[data-region="ab"]').click();await page.evaluate(()=>document.fonts.ready);await checkAds(1440);
 await page.screenshot({path:'tmp/desktop.png',fullPage:true});
 assert.ok(!requests.includes(adScripts[1]),'Mobile ad must not be loaded on desktop');
 const values={registrarKo:'트레버 버겐',surname:'김',given:'하늘',birth:'2024-02-29',place:'에드먼턴',registration:'TEST-2024-000001',registered:'2024-03-01',issued:'2024-03-05',parent1:'이예시',parent1Place:'대한민국',parent2:'김예시',parent2Place:'대한민국',translator:'김번역',serial:'AB00000000'};
