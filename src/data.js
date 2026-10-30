@@ -17,7 +17,7 @@ export function fieldsFor(region='ab') {
    if(copy[0]==='registered')copy[2]='Date of Registration';
    if(copy[0]==='issued')copy[2]='Date of Issue';
    if(copy[0]==='place')copy[4]='예. 밴쿠버, 빅토리아';
-   if(copy[0].endsWith('Place')){copy[2]='Birthplace of Parent';copy[4]='원본의 출생지를 한글로 입력';}
+   if(copy[0].endsWith('Place')){copy[2]='Birthplace of Parent';copy[4]='예. 대한민국';}
   }
   return copy;
  });
