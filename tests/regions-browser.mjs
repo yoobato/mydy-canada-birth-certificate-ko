@@ -12,7 +12,7 @@ assert.deepEqual(await page.locator('[data-region]').evaluateAll(buttons=>button
 assert.equal(await page.locator('.paper .specimen-links a').count(),1);
 assert.match(await page.locator('.paper .specimen-links a').first().getAttribute('href'),/parental-birth-cert-sex-displayed\.jpg$/);
 assert.equal(await page.locator('[data-region="bc"]').getAttribute('aria-pressed'),'true');
-assert.equal(await page.locator('#formCode').inputValue(),'');
+assert.equal(await page.locator('#formCode').inputValue(),'VSA 434 (24/04)');
 assert.equal(await page.locator('#place').getAttribute('placeholder'),'예. 밴쿠버, 빅토리아');
 assert.match(await page.locator('label[for="registration"]').innerText(),/Registration Number/);
 assert.equal(await page.locator('#sex option[value="M"]').innerText(),'남 (MALE)');
