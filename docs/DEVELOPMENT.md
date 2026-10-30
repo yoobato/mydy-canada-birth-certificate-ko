@@ -35,7 +35,7 @@
 
 ## 지역별 원본
 
-BC는 부모 정보 포함형(Parental Birth Certificate)의 공식 견본을 참고합니다. 성별 표시형만 지원하며 성별 입력과 PDF 표시는 필수입니다. BC 입력 화면은 옅은 청색 바탕을 사용하며 출생지 예시는 밴쿠버·빅토리아입니다. 등록번호는 Registration Number, 성별은 MALE·FEMALE로 표시하고 다른 성별 표기는 기타를 선택해 직접 입력할 수 있습니다. 등록관 직책은 Registrar General of Vital Statistics, 출생기록 등록지는 Victoria, British Columbia로 구분합니다. BC 서식 번호 기본값은 사용자 지정값 `VSA 434 (24/04)`이며 원본과 다르면 수정하거나 비워 둘 수 있습니다. 알버타에는 별도 DVS 기본값을 사용합니다.
+BC는 부모 정보 포함형(Parental Birth Certificate)의 공식 견본을 참고합니다. 성별 표시형만 지원하며 성별 입력과 PDF 표시는 필수입니다. BC 입력 화면은 옅은 청색 바탕을 사용하며 출생지 예시는 밴쿠버·빅토리아입니다. 등록번호는 Registration Number, 성별은 MALE·FEMALE로 표시하고 다른 성별 표기는 기타를 선택해 직접 입력할 수 있습니다. 등록관 직책은 Registrar General of Vital Statistics, 출생기록 등록지는 Victoria, British Columbia, Canada로 구분합니다. BC 서식 번호 기본값은 사용자 지정값 `VSA 434 (24/04)`이며 원본과 다르면 수정하거나 비워 둘 수 있습니다. 알버타에는 별도 DVS 기본값을 사용합니다.
 
 BC를 기본값으로 왼쪽에, 알버타를 오른쪽에 배치합니다. `?region=ab`는 알버타를 직접 엽니다. 각 입력 영역 하단에서 해당 주의 부모 정보 포함형 공식 견본을 새 창으로 열 수 있습니다. BC는 성별 표시형 견본을 제공합니다.
 
