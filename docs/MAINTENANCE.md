@@ -121,3 +121,7 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 `node scripts/generate-samples.mjs`로 실제 번역문과 같은 PDF 생성기를 사용해 재생성합니다. 샘플 생성 옵션에서만 상단에 샘플·가상 정보·제출용 아님 안내를 넣습니다. 일반 사용자 PDF에는 이 안내를 넣지 않습니다. PDF 서식 변경 시 두 샘플도 재생성하고 렌더링을 확인합니다. 개인정보를 넣은 테스트 PDF는 기존 규칙대로 커밋하지 않습니다.
 
 샘플 등록관 참고 자료: [BC 공공회계 2024/25](https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/government-finances/public-accounts/2024-25/pa-2024-25-crf-detailed-schedules-of-payments.pdf), [알버타 의회 2026-03-10 기록](https://docs.assembly.ab.ca/LADDAR_files/docs/committees/ef/legislature_31/session_2/20260310_1530_01_ef.pdf).
+
+## 커피 후원 링크
+
+PDF 다운로드 버튼 아래의 ‘☕ 개발자에게 커피 한 잔’은 `https://ko-fi.com/yoobato`를 새 탭으로 여는 일반 링크입니다. 외부 위젯·결제 스크립트를 삽입하지 않으며, 양식 입력값·PDF 내용·현재 페이지 리퍼러를 Ko-fi 링크에 전달하지 않습니다. 후원은 선택 사항이며 PDF 생성·다운로드와 독립적입니다. 후원 클릭이나 결제 완료 이벤트를 GA에 추가하지 않습니다. 결제·본인 인증·정산은 Ko-fi 및 연결된 결제 서비스에서 처리합니다.

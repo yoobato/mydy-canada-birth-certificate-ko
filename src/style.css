@@ -1182,3 +1182,5 @@ a {
 .certificate-field>.field-error { grid-column:2; }
 .sex-other .field-error { grid-column:auto; }
 input[aria-invalid="true"],select[aria-invalid="true"] { border-bottom-color:#a12f28; outline:1px solid #a12f28; outline-offset:1px; }
+
+.support-link{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:11px 12px;border:1px solid #d7c8ac;border-radius:4px;background:#f7f0e2;color:#655137;font-size:13px;line-height:1.5;text-decoration:none}.support-link:hover{background:#f0e5d0;border-color:#bba681}.support-link:focus-visible{outline:2px solid #456f67;outline-offset:3px}.support-link>span:first-child{font-size:18px;line-height:1}
