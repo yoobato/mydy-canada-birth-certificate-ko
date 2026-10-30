@@ -113,3 +113,9 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 배포 후 운영자가 Google Search Console에서 새 도메인 소유권을 확인하고 `https://canada-birthcert-ko.mydy.kr/sitemap.xml`을 제출합니다. 홈 URL 검사 후 색인 생성을 요청할 수 있습니다. Bing Webmaster Tools에서도 새 사이트와 사이트맵을 등록합니다. 외부 계정에서 인증·제출한 사실은 별도 확인 전 완료로 기록하지 않습니다. Google Search Console에서 AI 검색 기능의 포함 설정도 확인합니다.
 
 참고: [Google AI 검색 안내](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), [OpenAI 크롤러 안내](https://developers.openai.com/api/docs/bots).
+
+## FAQ 샘플 번역문
+
+`public/samples/bc-sample.pdf`, `public/samples/alberta-sample.pdf`는 전부 가상 정보로 만든 공개 예시입니다. FAQ에서 새 탭으로 열며 입력 양식과 독립적이므로 작성 중인 입력값을 바꾸지 않습니다. 실사용자 데이터와 원본 서명·도장은 포함하지 않습니다.
+
+`node scripts/generate-samples.mjs`로 실제 번역문과 같은 PDF 생성기를 사용해 재생성합니다. 샘플 생성 옵션에서만 상단에 샘플·가상 정보·제출용 아님 안내를 넣습니다. 일반 사용자 PDF에는 이 안내를 넣지 않습니다. PDF 서식 변경 시 두 샘플도 재생성하고 렌더링을 확인합니다. 개인정보를 넣은 테스트 PDF는 기존 규칙대로 커밋하지 않습니다.

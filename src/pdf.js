@@ -1,7 +1,7 @@
 import {PDFDocument,rgb} from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import {koreanDate,validate,sexLabel} from './data.js';
-export async function createPdf(data,fontBytes){
+export async function createPdf(data,fontBytes,{sample=false}={}){
  validate(data);
  const bc=data.region==='bc';
  if(!fontBytes){const response=await fetch(`${import.meta.env.BASE_URL}fonts/NanumGothic-Regular.ttf`);if(!response.ok)throw new Error('한글 글꼴을 불러오지 못했습니다.');fontBytes=await response.arrayBuffer();}
@@ -29,5 +29,11 @@ export async function createPdf(data,fontBytes){
  for(const edge of [[38,y,333,y],[38,y+height,333,y+height],[38,y,38,y+height],[129,y,129,y+height],[333,y,333,y+height]])rule(...edge);
  heading('번역자',38,91,y+13);text(data.translator,139,y+13,12,115);
  page.drawText('(인)',{x:265,y:y+13,size:12,font,color:rgb(.65,.65,.65)});
+ if(sample){
+  const label='샘플 · 가상 정보 · 실제 제출용이 아닙니다';
+  const size=9;
+  page.drawText(label,{x:(612-font.widthOfTextAtSize(label,size))/2,y:777,size,font,color:rgb(.55,.24,.2)});
+  page.drawText('성명·날짜·번호·등록관·번역자는 모두 가상 정보입니다.',{x:38,y:22,size:8,font,color:rgb(.45,.45,.45)});
+ }
  return pdf.save();
 }

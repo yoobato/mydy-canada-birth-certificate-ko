@@ -6,3 +6,6 @@ playwright-report/
 .DS_Store
 *.pdf
 .env*
+# Public fictional examples only; user-generated PDFs remain ignored.
+!public/samples/bc-sample.pdf
+!public/samples/alberta-sample.pdf
