@@ -116,6 +116,8 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 
 ## FAQ 샘플 번역문
 
-`public/samples/bc-sample.pdf`, `public/samples/alberta-sample.pdf`는 전부 가상 정보로 만든 공개 예시입니다. FAQ에서 새 탭으로 열며 입력 양식과 독립적이므로 작성 중인 입력값을 바꾸지 않습니다. 실사용자 데이터와 원본 서명·도장은 포함하지 않습니다.
+`public/samples/bc-sample.pdf`, `public/samples/alberta-sample.pdf`는 가상 인물·날짜·번호로 만든 공개 예시입니다. FAQ에서 새 탭으로 열며 입력 양식과 독립적이므로 작성 중인 입력값을 바꾸지 않습니다. 실사용자 데이터와 원본 서명·도장은 포함하지 않습니다. 등록관 이름은 BC 데이비드 사이츠(David Seitz), 알버타 트레버 버겐(Trevor Bergen)을 예시로 사용합니다. BC 정부 명부 검색 기록과 2024/25 공공회계 자료는 David Seitz를 Registrar General로 기재합니다. 알버타 2026-03-10 의회 기록은 Trevor Bergen을 Consumer Registry and Strategic Services 차관보로 기재하지만 등록관 임명을 직접 확인하는 자료는 아닙니다. 2026-10-30 현재 재직을 확정한 명단으로 취급하지 않으며, 실제 작성에는 증명서 원본의 서명자 이름을 사용합니다.
 
 `node scripts/generate-samples.mjs`로 실제 번역문과 같은 PDF 생성기를 사용해 재생성합니다. 샘플 생성 옵션에서만 상단에 샘플·가상 정보·제출용 아님 안내를 넣습니다. 일반 사용자 PDF에는 이 안내를 넣지 않습니다. PDF 서식 변경 시 두 샘플도 재생성하고 렌더링을 확인합니다. 개인정보를 넣은 테스트 PDF는 기존 규칙대로 커밋하지 않습니다.
+
+샘플 등록관 참고 자료: [BC 공공회계 2024/25](https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/government-finances/public-accounts/2024-25/pa-2024-25-crf-detailed-schedules-of-payments.pdf), [알버타 의회 2026-03-10 기록](https://docs.assembly.ab.ca/LADDAR_files/docs/committees/ef/legislature_31/session_2/20260310_1530_01_ef.pdf).

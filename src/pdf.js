@@ -33,7 +33,7 @@ export async function createPdf(data,fontBytes,{sample=false}={}){
   const label='샘플 · 가상 정보 · 실제 제출용이 아닙니다';
   const size=9;
   page.drawText(label,{x:(612-font.widthOfTextAtSize(label,size))/2,y:777,size,font,color:rgb(.55,.24,.2)});
-  page.drawText('성명·날짜·번호·등록관·번역자는 모두 가상 정보입니다.',{x:38,y:22,size:8,font,color:rgb(.45,.45,.45)});
+  page.drawText('아이·부모·번역자 정보와 날짜·번호는 예시입니다. 등록관 이름은 원본을 확인하세요.',{x:38,y:22,size:8,font,color:rgb(.45,.45,.45)});
  }
  return pdf.save();
 }
