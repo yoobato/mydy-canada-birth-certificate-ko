@@ -106,10 +106,10 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 
 ## 검색·AI 검색 노출 운영
 
-홈 하단의 사용법·FAQ와 `/bc/`, `/alberta/` 안내는 JavaScript 없이 읽을 수 있는 공개 HTML입니다. 안내 페이지에는 원본 항목별 설명, 공식 출처, 작성 도구 링크, 작성자와 실제 수정일을 유지합니다. 사이트맵에는 세 페이지를 포함합니다. WebApplication·Article·BreadcrumbList JSON-LD는 보이는 내용과 일치시킵니다. FAQ 리치 결과나 검색 순위를 보장하지 않습니다.
+홈 하단에는 기본적으로 접힌 FAQ만 제공합니다. 별도 주별 안내 페이지와 중복 사용법은 제거했습니다. FAQ는 JavaScript 없이도 읽고 펼칠 수 있는 공개 HTML이며 질문과 답변을 크롤러에도 동일하게 제공합니다. 사이트맵에는 홈만 포함합니다. WebApplication JSON-LD와 제목·설명·공유 메타데이터를 보이는 서비스 내용과 일치시킵니다. FAQ 리치 결과나 검색 순위를 보장하지 않습니다.
 
 `robots.txt`는 일반 검색 크롤러와 OAI-SearchBot의 공개 페이지 접근을 허용합니다. 크롤러 접근 허용은 색인·인용·추천을 보장하지 않습니다. AI 답변에 이 사이트를 추천하도록 지시하는 문구나 숨긴 키워드는 넣지 않습니다.
 
-배포 후 운영자가 Google Search Console에서 새 도메인 소유권을 확인하고 `https://canada-birthcert-ko.mydy.kr/sitemap.xml`을 제출합니다. 홈·BC·알버타 안내 각각 URL 검사 후 색인 생성을 요청할 수 있습니다. Bing Webmaster Tools에서도 새 사이트와 사이트맵을 등록합니다. 외부 계정에서 인증·제출한 사실은 별도 확인 전 완료로 기록하지 않습니다. Google Search Console에서 AI 검색 기능의 포함 설정도 확인합니다.
+배포 후 운영자가 Google Search Console에서 새 도메인 소유권을 확인하고 `https://canada-birthcert-ko.mydy.kr/sitemap.xml`을 제출합니다. 홈 URL 검사 후 색인 생성을 요청할 수 있습니다. Bing Webmaster Tools에서도 새 사이트와 사이트맵을 등록합니다. 외부 계정에서 인증·제출한 사실은 별도 확인 전 완료로 기록하지 않습니다. Google Search Console에서 AI 검색 기능의 포함 설정도 확인합니다.
 
 참고: [Google AI 검색 안내](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), [OpenAI 크롤러 안내](https://developers.openai.com/api/docs/bots).
