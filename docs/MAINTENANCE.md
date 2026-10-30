@@ -29,7 +29,7 @@ node tests/regions-browser.mjs
 
 ### 도메인 이전 절차
 
-새 도메인의 CNAME을 확인하고 GitHub Pages의 Custom domain을 `canada-birthcert-ko.mydy.kr`로 전환했습니다. 기존 `ab-birthcert-ko.mydy.kr` 주소는 GoDaddy 301 포워딩을 별도로 설정해야 합니다. Adsterra 새 도메인 승인과 광고 코드 이전 여부도 별도 확인합니다.
+새 도메인의 CNAME을 확인하고 GitHub Pages의 Custom domain을 `canada-birthcert-ko.mydy.kr`로 전환했습니다. 기존 `ab-birthcert-ko.mydy.kr` 주소는 GoDaddy 301 포워딩을 별도로 설정해야 합니다. 사용자가 새 도메인용으로 제공한 배너 코드 세 가지를 적용했습니다.
 
 1. GitHub 계정의 Pages 도메인 인증을 이용해 `mydy.kr` 소유권을 확인합니다. 기존 인증이 있다면 유지합니다.
 2. GoDaddy에서 CNAME `canada-birthcert-ko` → `yoobato.github.io`를 추가합니다. `@`, `calog` 등 다른 레코드는 변경하지 않습니다.
@@ -64,9 +64,9 @@ GoDaddy 포워딩은 공식 안내상 HTTPS를 자동 지원합니다. DNS 전�
 
 | 위치 | 크기 | 광고 키 |
 | --- | --- | --- |
-| 상단 PC | 728×90 | `07be985bbc89fc630c8c7e3055ec8e9b` |
-| 상단 모바일 | 320×50 | `dff941cbd01aff06f3fbce0c34fa0967` |
-| 번역 준비 아래 | 300×250 | `abf3cab706ccca549436cc9f2918d3ef` |
+| 상단 PC | 728×90 | `8a7f9b407df1f0c06734b6d94816e9cd` |
+| 상단 모바일 | 320×50 | `ff69865290a386d9a2b164b7a7e7f47d` |
+| 번역 준비 아래 | 300×250 | `5ea85e7ac7dd2851f7c1125a6f55f978` |
 
 스크립트 주소는 각 키의 `https://bauval.org/22/<key>`입니다. `atOptions.params`는 빈 객체로 유지하고 입력값·PDF·GA 데이터를 광고에 전달하지 않습니다.
 

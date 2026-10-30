@@ -1,7 +1,7 @@
 const banners = {
-  desktop: {key: '07be985bbc89fc630c8c7e3055ec8e9b', width: 728, height: 90},
-  mobile: {key: 'dff941cbd01aff06f3fbce0c34fa0967', width: 320, height: 50},
-  rectangle: {key: 'abf3cab706ccca549436cc9f2918d3ef', width: 300, height: 250},
+  desktop: {key: '8a7f9b407df1f0c06734b6d94816e9cd', width: 728, height: 90},
+  mobile: {key: 'ff69865290a386d9a2b164b7a7e7f47d', width: 320, height: 50},
+  rectangle: {key: '5ea85e7ac7dd2851f7c1125a6f55f978', width: 300, height: 250},
 };
 
 function createFrame({key, width, height}) {

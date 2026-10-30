@@ -6,7 +6,7 @@ const base=process.env.TEST_URL || 'http://127.0.0.1:5178/';
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1200}});const errors=[];page.on('pageerror',e=>errors.push(e.message));const requests=[];page.on('request',r=>requests.push(r.url()));
 await page.route('https://www.googletagmanager.com/**',route=>route.fulfill({contentType:'application/javascript',body:'/* Analytics intercepted for QA; nothing sent to Google. */'}));
-const adKeys = ['07be985bbc89fc630c8c7e3055ec8e9b','dff941cbd01aff06f3fbce0c34fa0967','abf3cab706ccca549436cc9f2918d3ef'];
+const adKeys = ['8a7f9b407df1f0c06734b6d94816e9cd','ff69865290a386d9a2b164b7a7e7f47d','5ea85e7ac7dd2851f7c1125a6f55f978'];
 const adScripts = adKeys.map(key=>'https://bauval.org/22/'+key);
 await page.route('https://bauval.org/**',route=>{
   assert.ok(adScripts.includes(route.request().url()));
@@ -29,6 +29,7 @@ async function checkAds(width) {
   assert.equal(await page.locator('.advertisement').count(),2);
   const slots=['.advertisement-top','.advertisement-rectangle'];
   const sizes=[[width>=800?728:320,width>=800?90:50],[300,250]];
+  await page.waitForFunction(expected=>document.querySelector('.advertisement-top iframe')?.getAttribute('width')===String(expected),sizes[0][0]);
   const keys=[];
   for(let i=0;i<slots.length;i++){
     const ad=page.locator(slots[i]+' iframe');
