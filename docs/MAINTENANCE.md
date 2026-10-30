@@ -103,3 +103,13 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 의존성 변경 후 `npm ci`로 설치하고 `node scripts/generate-notices.mjs`를 실행합니다. `THIRD_PARTY_NOTICES.md`와 배포용 `public/THIRD_PARTY_NOTICES.txt`를 함께 커밋합니다. 현재 플랫폼에 설치된 패키지의 원문을 수집하므로 선택적 네이티브 패키지는 플랫폼에 따라 달라질 수 있습니다. npm 패키지에 내장된 코드의 추가 고지는 별도로 검토합니다. fontkit은 독립 LICENSE 파일이 없어 배포 번들의 라이선스 주석과 MIT 선언을 기록합니다.
 
 프로젝트 자체에 오픈소스 라이선스를 부여하는 결정은 저작권자가 별도로 내립니다. 정부 로고·외부 서비스·글꼴의 조건을 프로젝트 라이선스로 대체하지 않습니다.
+
+## 검색·AI 검색 노출 운영
+
+홈 하단의 사용법·FAQ와 `/bc/`, `/alberta/` 안내는 JavaScript 없이 읽을 수 있는 공개 HTML입니다. 안내 페이지에는 원본 항목별 설명, 공식 출처, 작성 도구 링크, 작성자와 실제 수정일을 유지합니다. 사이트맵에는 세 페이지를 포함합니다. WebApplication·Article·BreadcrumbList JSON-LD는 보이는 내용과 일치시킵니다. FAQ 리치 결과나 검색 순위를 보장하지 않습니다.
+
+`robots.txt`는 일반 검색 크롤러와 OAI-SearchBot의 공개 페이지 접근을 허용합니다. 크롤러 접근 허용은 색인·인용·추천을 보장하지 않습니다. AI 답변에 이 사이트를 추천하도록 지시하는 문구나 숨긴 키워드는 넣지 않습니다.
+
+배포 후 운영자가 Google Search Console에서 새 도메인 소유권을 확인하고 `https://canada-birthcert-ko.mydy.kr/sitemap.xml`을 제출합니다. 홈·BC·알버타 안내 각각 URL 검사 후 색인 생성을 요청할 수 있습니다. Bing Webmaster Tools에서도 새 사이트와 사이트맵을 등록합니다. 외부 계정에서 인증·제출한 사실은 별도 확인 전 완료로 기록하지 않습니다. Google Search Console에서 AI 검색 기능의 포함 설정도 확인합니다.
+
+참고: [Google AI 검색 안내](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), [OpenAI 크롤러 안내](https://developers.openai.com/api/docs/bots).

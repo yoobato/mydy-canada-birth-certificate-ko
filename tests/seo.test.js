@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+const origin='https://canada-birthcert-ko.mydy.kr';
+const documents=[['index.html','/'],['public/bc/index.html','/bc/'],['public/alberta/index.html','/alberta/']];
+test('public search pages have distinct canonical metadata, readable content and valid linked data',()=>{
+ const titles=new Set();
+ for(const [file,path] of documents){
+  const html=readFileSync(file,'utf8');
+  assert.ok(html.includes(`rel="canonical" href="${origin}${path}"`));
+  assert.ok(!html.includes('ab-birthcert-ko.mydy.kr'));
+  assert.ok(!html.includes('noindex'));
+  const title=html.match(/<title>(.*?)<\/title>/)[1];assert.ok(!titles.has(title));titles.add(title);
+  assert.match(html,/<h1[^>]*>[^<]+/);
+  assert.match(html,/<h2>자주 묻는 질문<\/h2>/);
+  for(const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g))assert.equal(JSON.parse(match[1])['@context'],'https://schema.org');
+  for(const match of html.matchAll(/href="(\/[^"?#]*)(?:[?#][^"]*)?"/g)){
+   const target=match[1];if(target==='/')continue;
+   assert.ok(existsSync('public'+target+(target.endsWith('/')?'index.html':'')),`${file}: broken link ${target}`);
+  }
+ }
+});
+test('sitemap lists canonical pages and search crawlers are allowed',()=>{
+ const sitemap=readFileSync('public/sitemap.xml','utf8');
+ for(const [,path] of documents)assert.ok(sitemap.includes(`<loc>${origin}${path}</loc>`));
+ const robots=readFileSync('public/robots.txt','utf8');
+ assert.match(robots,/User-agent: \*\nAllow: \//);
+ assert.match(robots,/User-agent: OAI-SearchBot\nAllow: \//);
+ assert.ok(robots.includes(origin+'/sitemap.xml'));
+});

@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# ChatGPT search discovery; separate from model-training preferences.
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://canada-birthcert-ko.mydy.kr/sitemap.xml
