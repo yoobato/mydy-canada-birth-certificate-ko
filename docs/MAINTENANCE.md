@@ -122,6 +122,6 @@ Google Search Console에 사이트 소유권을 인증하고 사이트맵을 제
 
 샘플 등록관 참고 자료: [BC 공공회계 2024/25](https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/government-finances/public-accounts/2024-25/pa-2024-25-crf-detailed-schedules-of-payments.pdf), [알버타 의회 2026-03-10 기록](https://docs.assembly.ab.ca/LADDAR_files/docs/committees/ef/legislature_31/session_2/20260310_1530_01_ef.pdf).
 
-## 커피 후원 링크
+## 커피 후원 위젯
 
-PDF 다운로드 버튼 아래의 ‘☕ 개발자에게 커피 한 잔’은 `https://ko-fi.com/yoobato`를 새 탭으로 여는 일반 링크입니다. 외부 위젯·결제 스크립트를 삽입하지 않으며, 양식 입력값·PDF 내용·현재 페이지 리퍼러를 Ko-fi 링크에 전달하지 않습니다. 후원은 선택 사항이며 PDF 생성·다운로드와 독립적입니다. 후원 클릭이나 결제 완료 이벤트를 GA에 추가하지 않습니다. 결제·본인 인증·정산은 Ko-fi 및 연결된 결제 서비스에서 처리합니다.
+PDF 다운로드 버튼 아래의 ‘☕ 개발자에게 커피 한 잔’은 페이지 내 dialog에서 Ko-fi 공식 Tip Panel을 엽니다. 버튼을 누를 때만 `https://ko-fi.com/yoobato/?hidefeed=true&widget=true&embed=true&preview=true` iframe을 만들고, 닫으면 제거합니다. 외부 스크립트를 부모 페이지에 삽입하지 않습니다. cross-origin iframe과 no-referrer 정책을 유지하고 양식 입력값·PDF 내용을 전달하지 않습니다. 닫기·Esc·바깥 영역 클릭을 지원하며 창 안에는 Ko-fi 페이지로 직접 이동하는 대체 링크도 제공합니다. 후원은 선택 사항이며 PDF 생성·다운로드와 독립적입니다. 후원 클릭이나 결제 완료 이벤트를 GA에 추가하지 않습니다. 후원 창을 열면 Ko-fi 및 결제 제공업체로 접속이 발생하며 해당 업체의 개인정보 처리방침이 적용됩니다. 결제·본인 인증·정산은 Ko-fi 및 연결된 결제 서비스에서 처리합니다. 공식 위젯 안내상 Apple Pay·Google Pay는 위젯에서 지원하지 않으므로 필요한 경우 대체 링크를 이용합니다. 참고: https://help.ko-fi.com/hc/en-us/articles/360018381678-Ko-fi-tip-widget
