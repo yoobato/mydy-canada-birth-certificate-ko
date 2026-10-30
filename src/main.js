@@ -7,7 +7,7 @@ import {fieldsFor,validate,helpFor} from './data.js';
 let region=new URLSearchParams(location.search).get('region')==='ab'?'ab':'bc';
 const drafts={};
 const isBc=()=>region==='bc';
-const field=([key,label,en,type,placeholder])=>{const hint=helpFor(region)[key];return `<div class="field certificate-field field-${key}"><div class="field-label"><label for="${key}">${en}<small>${label}</small></label>${hint?`<button type="button" class="help-trigger" tabindex="-1" aria-label="${label} 도움말" aria-describedby="help-${key}">?<span class="field-tooltip" role="tooltip" id="help-${key}">${hint}</span></button>`:''}</div>${type==='select'?`<select ${hint?`aria-describedby="help-${key}"`:''} id="${key}" name="${key}" required><option value="">선택하세요</option><option value="M">남 (${isBc()?'MALE':'M'})</option><option value="F">여 (${isBc()?'FEMALE':'F'})</option>${isBc()?'<option value="X">X (기타 표기)</option>':''}</select>`:`<input ${hint?`aria-describedby="help-${key}"`:''} id="${key}" name="${key}" type="${type}" ${type==='date'?'min="1000-01-01" max="9999-12-31"':'maxlength="80"'} placeholder="${placeholder}" required>`}</div>`;};
+const field=([key,label,en,type,placeholder])=>{const hint=helpFor(region)[key];return `<div class="field certificate-field field-${key}"><div class="field-label"><label for="${key}">${en}<small>${label}</small></label>${hint?`<button type="button" class="help-trigger" tabindex="-1" aria-label="${label} 도움말" aria-describedby="help-${key}">?<span class="field-tooltip" role="tooltip" id="help-${key}">${hint}</span></button>`:''}</div>${type==='select'?`<select ${hint?`aria-describedby="help-${key}"`:''} id="${key}" name="${key}" required><option value="">선택하세요</option><option value="M">남 (${isBc()?'MALE':'M'})</option><option value="F">여 (${isBc()?'FEMALE':'F'})</option><option value="OTHER">기타</option></select><div class="sex-other" hidden><label for="sexOther">성별 표기 직접 입력</label><input id="sexOther" name="sexOther" type="text" maxlength="30" placeholder="원본 표기 입력 (예. X)" aria-describedby="sexOtherHelp" disabled><small id="sexOtherHelp">원본의 표기를 입력해 주세요. 입력한 내용이 번역문에 그대로 표시됩니다.</small></div>`:`<input ${hint?`aria-describedby="help-${key}"`:''} id="${key}" name="${key}" type="${type}" ${type==='date'?'min="1000-01-01" max="9999-12-31"':'maxlength="80"'} placeholder="${placeholder}" required>`}</div>`;};
 const bcSampleRoot='https://www2.gov.bc.ca/assets/gov/birth-adoption-death-marriage-and-divorce/births/images/';
 const albertaSample='https://www.alberta.ca/system/files/custom_downloaded_images/vt-birth-certificate-personal-information-parentage-sample.pdf';
 const specimenLinks=()=>`<div class="specimen-links"><strong>${isBc()?'BC주':'알버타주'} 출생증명서 공식 견본</strong><div>${isBc()?`<a href="${bcSampleRoot}parental-birth-cert-sex-displayed.jpg" target="_blank" rel="noopener noreferrer">부모 정보 포함 · 성별 표시 ↗</a>`:`<a href="${albertaSample}" target="_blank" rel="noopener noreferrer">부모 정보 포함 출생증명서 (PDF) ↗</a>`}</div></div>`;
@@ -18,6 +18,14 @@ const form=document.querySelector('#form'),status=document.querySelector('#statu
 const required=()=>[...form.querySelectorAll('input[required],select[required]')];
 function update(){const n=required().filter(el=>el.value.trim()).length;document.querySelector('#count').textContent=`${n} / ${required().length}`;document.querySelector('#bar').style.width=`${n/required().length*100}%`;status.textContent='';}
 form.addEventListener('input',update);
+function syncSexOther(){
+ const other=form.elements.sex.value==='OTHER';
+ const input=form.elements.sexOther;
+ input.closest('.sex-other').hidden=!other;
+ input.disabled=!other;
+ input.required=other;
+}
+form.addEventListener('change',event=>{if(event.target.id==='sex'){syncSexOther();update();}});
 let pdfUrl;
 async function generate(preview){if(!form.reportValidity())return;let data;try{data=validate({...Object.fromEntries(new FormData(form)),region});}catch(e){status.textContent=e.message;return;}
 const buttons=[...document.querySelectorAll('[data-region],#download,#preview')];buttons.forEach(b=>b.disabled=true);status.textContent='한글 번역문을 만들고 있습니다…';try{const {createPdf}=await import('./pdf.js');const bytes=await createPdf(data);if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));if(preview){document.querySelector('#pdfFrame').src=pdfUrl;document.querySelector('#previewLink').href=pdfUrl;document.querySelector('#previewLink').download=`${isBc()?'BC':'알버타'}_출생증명서_한글번역문.pdf`;document.querySelector('#dialog').showModal();analytics.track('translation_preview');}else{const a=document.createElement('a');a.href=pdfUrl;a.download=`${isBc()?'BC':'알버타'}_출생증명서_한글번역문.pdf`;a.click();analytics.track('pdf_download');}status.textContent='번역문이 완성되었습니다. 출력 후 서명해 주세요.';}catch(error){console.error(error);status.textContent='PDF를 만들지 못했습니다. 연결 상태와 입력 내용을 확인한 뒤 다시 시도해 주세요.';}finally{buttons.forEach(b=>b.disabled=false);}}
@@ -27,6 +35,7 @@ function renderCertificate(values={}) {
  paper.classList.toggle('paper-bc',isBc());
  paper.innerHTML=certificate();
  for(const [key,value]of Object.entries(values)){const input=form.elements.namedItem(key);if(input)input.value=value;}
+ syncSexOther();
  document.querySelectorAll('[data-region]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.region===region)));
  if(pdfUrl){URL.revokeObjectURL(pdfUrl);pdfUrl=undefined;document.querySelector('#pdfFrame').removeAttribute('src');document.querySelector('#previewLink').removeAttribute('href');}
  update();

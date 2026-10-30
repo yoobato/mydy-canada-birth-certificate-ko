@@ -1169,3 +1169,11 @@ a {
 .specimen-links>div { display:flex; flex-wrap:wrap; gap:6px 22px; }
 .specimen-links a { color:inherit; text-underline-offset:3px; }
 @media(max-width:760px) { .specimen-links { font-size:10px; } }
+
+.sex-other { grid-column:2; display:grid; gap:6px; min-width:0; }
+.sex-other[hidden] { display:none; }
+.certificate-field .sex-other label { font-size:10px; font-weight:normal; line-height:1.5; }
+.sex-other small { color:#647a80; font-size:10px; line-height:1.6; overflow-wrap:anywhere; }
+@media(max-width:760px) { .sex-other small,.certificate-field .sex-other label { font-size:9px; } }
+
+.fields:has(.sex-other:not([hidden])) .field-birth { align-self:start; }

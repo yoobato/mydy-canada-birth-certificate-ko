@@ -1,6 +1,6 @@
 import {PDFDocument,rgb} from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
-import {koreanDate,validate} from './data.js';
+import {koreanDate,validate,sexLabel} from './data.js';
 export async function createPdf(data,fontBytes){
  validate(data);
  const bc=data.region==='bc';
@@ -18,7 +18,7 @@ export async function createPdf(data,fontBytes){
  centered(data.registrarKo,210,170,564,11);centered(bc?'인구동태통계 총등록관':'인구동태통계 등록관',210,170,545,10);
  centered(bc?'브리티시컬럼비아주 빅토리아에':'캐나다 알버타주 에드먼턴에',399,175,568,9);centered('등록된 출생기록에서',399,175,553,9);centered('추출된 증명서',399,175,538,9);
  const heading=(value,left,cellWidth,y)=>{const chars=[...value.replace(/ /g,'')];const size=10,span=45;const start=left+(cellWidth-span)/2;if(chars.length===1){centered(value,left,cellWidth,y,size);return;}const gap=(span-font.widthOfTextAtSize(chars.join(''),size))/(chars.length-1);let x=start;for(const c of chars){text(c,x,y,size);x+=font.widthOfTextAtSize(c,size)+gap;}};
- const rows=[['성',data.surname],['이름',data.given],['생년월일',koreanDate(data.birth),'성별',data.sex==='M'?'남':data.sex==='F'?'여':'기타 (X)'],['출생지',data.place],['등록번호',data.registration],['등록일',koreanDate(data.registered),'발급일',koreanDate(data.issued)],[bc?'부모 1 성명':'모 성명',data.parent1],['출생지',data.parent1Place],[bc?'부모 2 성명':'부 성명',data.parent2],['출생지',data.parent2Place]];
+ const rows=[['성',data.surname],['이름',data.given],['생년월일',koreanDate(data.birth),'성별',sexLabel(data)],['출생지',data.place],['등록번호',data.registration],['등록일',koreanDate(data.registered),'발급일',koreanDate(data.issued)],[bc?'부모 1 성명':'모 성명',data.parent1],['출생지',data.parent1Place],[bc?'부모 2 성명':'부 성명',data.parent2],['출생지',data.parent2Place]];
  const xs=[38,129,333,402,557],rowHeight=35,top=512;
  rows.forEach((r,i)=>{const y=top-i*rowHeight;const end=r.length===4?557:333;page.drawRectangle({x:38,y:y-rowHeight,width:91,height:rowHeight,color:wash});if(r.length===4)page.drawRectangle({x:333,y:y-rowHeight,width:69,height:rowHeight,color:wash});rule(38,y,end,y);rule(38,y-rowHeight,end,y-rowHeight);for(const x of (r.length===4?xs:xs.slice(0,3)))rule(x,y,x,y-rowHeight);heading(r[0],38,91,y-23);text(r[1],139,y-23,12,184);if(r.length===4){heading(r[2],333,69,y-23);text(r[3],412,y-23,11,135);}});
  const serial=String(data.serial||'');let letterSize=10;const spacing=6;const width=font.widthOfTextAtSize(serial,letterSize)+Math.max(0,serial.length-1)*spacing;
