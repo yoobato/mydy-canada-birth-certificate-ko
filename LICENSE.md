@@ -14,7 +14,7 @@ Third-party components remain under their respective licenses. Their terms take 
 
 - [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md): installed package versions, declared licenses, copyright notices, license texts, and bundled notices.
 - [Nanum Gothic OFL 1.1](public/fonts/OFL.txt): the font's original copyright notice and full license.
-- [Deployed third-party notices](https://ab-birthcert-ko.mydy.kr/THIRD_PARTY_NOTICES.txt): the same notices distributed with the website.
+- [Deployed third-party notices](https://canada-birthcert-ko.mydy.kr/THIRD_PARTY_NOTICES.txt): the same notices distributed with the website.
 
 The application uses pdf-lib and @pdf-lib/fontkit for browser-side PDF generation. PDF dependencies include MIT, Zlib, 0BSD and bundled Apache-2.0 components. Build and test tooling carries its own notices, including Vite, Rollup and Playwright. See the notice inventory for exact installed versions and full texts.
 

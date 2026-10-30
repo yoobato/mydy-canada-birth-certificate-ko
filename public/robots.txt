@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ab-birthcert-ko.mydy.kr/sitemap.xml
+Sitemap: https://canada-birthcert-ko.mydy.kr/sitemap.xml

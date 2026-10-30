@@ -1,6 +1,6 @@
 export const MEASUREMENT_ID = 'G-2TXN5Z7X2G';
 const EVENTS = new Set(['page_view', 'translation_preview', 'pdf_download']);
-const PAGE = 'https://ab-birthcert-ko.mydy.kr/';
+const PAGE = 'https://canada-birthcert-ko.mydy.kr/';
 
 // Only fixed event names and fixed page metadata enter Analytics. Never pass form data.
 export function createAnalytics(win, doc, enabled) {

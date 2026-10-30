@@ -58,7 +58,7 @@ flowchart LR
 ## 배포·통계·검색
 
 - Vite로 정적 파일을 빌드하고 GitHub Actions → GitHub Pages로 배포합니다.
-- 대표 도메인은 `https://ab-birthcert-ko.mydy.kr/`이며 HTTP 접속을 HTTPS로 전환합니다.
+- 대표 도메인은 `https://canada-birthcert-ko.mydy.kr/`이며 HTTP 접속을 HTTPS로 전환합니다.
 - GA4의 방문·미리보기·다운로드 이벤트만 명시적으로 전송합니다. 개발 서버에서는 비활성화합니다.
 - HTML에 제목·설명·canonical·Open Graph·X 카드·WebApplication JSON-LD를 포함합니다.
 - robots.txt와 sitemap.xml을 제공하고 JavaScript 미사용 시 초기 안내를 표시합니다.

@@ -14,20 +14,33 @@ npm run test:browser
 node tests/regions-browser.mjs
 ```
 
-브라우저 검증에는 가상 데이터만 사용합니다. 결과는 Git에서 제외되는 `tmp/`에 저장되며 Google 태그는 가짜 응답으로 대체해 실제 통계 전송을 막습니다. 배포본 확인에는 `TEST_URL=https://ab-birthcert-ko.mydy.kr/ npm run test:browser`를 사용할 수 있습니다.
+브라우저 검증에는 가상 데이터만 사용합니다. 결과는 Git에서 제외되는 `tmp/`에 저장되며 Google 태그는 가짜 응답으로 대체해 실제 통계 전송을 막습니다. 배포본 확인에는 `TEST_URL=https://canada-birthcert-ko.mydy.kr/ npm run test:browser`를 사용할 수 있습니다.
 
 배포 커밋은 내비게이션 GitHub 버튼에 `#`와 짧은 SHA로 표시합니다. Actions의 `GITHUB_SHA`를 우선 사용하고 로컬에서는 Git HEAD를 읽습니다. 개발 서버의 SHA를 갱신하려면 서버를 재시작합니다.
 
 ## 도메인과 HTTPS
 
-- 서비스: `https://ab-birthcert-ko.mydy.kr/`
-- DNS: `ab-birthcert-ko`의 CNAME을 `yoobato.github.io`로 설정
-- GitHub 저장소 Settings → Pages: Source는 GitHub Actions, Custom domain은 `ab-birthcert-ko.mydy.kr`, Enforce HTTPS 활성화
+- 서비스: `https://canada-birthcert-ko.mydy.kr/`
+- DNS: `canada-birthcert-ko`의 CNAME을 `yoobato.github.io`로 설정
+- GitHub 저장소 Settings → Pages: Source는 GitHub Actions, Custom domain은 `canada-birthcert-ko.mydy.kr`, Enforce HTTPS 활성화
 - 인증서는 GitHub Pages가 관리합니다. 도메인을 변경한 뒤에는 DNS·인증서·HTTP → HTTPS 리디렉션을 확인합니다.
 
 도메인을 바꾸면 `index.html`, `public/robots.txt`, `public/sitemap.xml`, `src/analytics.js`의 고정 URL과 공유 이미지·문서도 함께 갱신합니다. Actions 배포에서는 저장소의 CNAME 파일이 필요하지 않습니다.
 
-향후 `canada-birthcert-ko.mydy.kr`로 이전하고 기존 알버타 주소를 리디렉션할 예정입니다. 현재 DNS·Pages·canonical·사이트맵은 변경하지 않았습니다.
+### 도메인 이전 절차
+
+새 도메인 전환을 준비한 상태입니다. 배포 전 실제 DNS·GitHub Pages 연결과 Adsterra 승인 상태를 확인합니다. 기존 서비스는 `https://ab-birthcert-ko.mydy.kr/`에서 운영 중입니다.
+
+1. GitHub 계정의 Pages 도메인 인증을 이용해 `mydy.kr` 소유권을 확인합니다. 기존 인증이 있다면 유지합니다.
+2. GoDaddy에서 CNAME `canada-birthcert-ko` → `yoobato.github.io`를 추가합니다. `@`, `calog` 등 다른 레코드는 변경하지 않습니다.
+3. 해당 저장소 Settings → Pages → Custom domain을 `canada-birthcert-ko.mydy.kr`로 변경합니다. DNS 확인과 인증서 발급 후 Enforce HTTPS를 확인합니다.
+4. 사이트의 새 canonical·GA 고정 URL·사이트맵·공유 이미지 변경을 배포합니다.
+5. 새 주소의 HTTPS와 입력·PDF 생성이 정상인지 확인한 뒤 GoDaddy DNS → Forwarding → Subdomain에 `ab-birthcert-ko` → `https://canada-birthcert-ko.mydy.kr/`, Permanent (301), Forward only를 설정합니다. 기존 서브도메인 DNS는 GoDaddy 포워딩용으로 전환되므로 별도로 CNAME을 유지하지 않습니다.
+6. 기존 주소의 HTTP·HTTPS 요청이 새 주소로 리디렉션되는지 확인합니다. GitHub Pages Custom domain 변경만으로 두 개의 임의 서브도메인 간 리디렉션이 설정되지는 않습니다.
+7. Adsterra에서 새 주소를 사이트로 추가하고 Banner 728×90·320×50·300×250 코드를 발급받아 교체합니다. 또는 담당 지원팀이 기존 사이트와 코드의 도메인 변경을 승인했는지 확인합니다. 기존 코드가 새 도메인에서도 승인된다고 가정하지 않습니다.
+8. GA 웹 데이터 스트림의 웹사이트 URL을 새 주소로 수정합니다. 측정 ID는 유지합니다. Search Console과 `mydy.kr` 소개 페이지의 서비스 링크도 갱신합니다.
+
+GoDaddy 포워딩은 공식 안내상 HTTPS를 자동 지원합니다. DNS 전파와 각 서비스 인증 완료 시점은 별도로 확인합니다.
 
 ## Google Analytics
 
@@ -67,9 +80,9 @@ node tests/regions-browser.mjs
 
 `index.html`에 title·description·canonical·robots·Open Graph·X 카드 정보와 WebApplication JSON-LD가 있습니다. 메타데이터는 JavaScript 실행 전 HTML에서 읽을 수 있습니다. 초기 안내는 앱 실행 후 입력 화면으로 교체되고, JavaScript가 꺼져 있으면 사용 안내가 남습니다.
 
-- 대표 URL: `https://ab-birthcert-ko.mydy.kr/`
-- 사이트맵: `https://ab-birthcert-ko.mydy.kr/sitemap.xml`
-- 공유 이미지: `https://ab-birthcert-ko.mydy.kr/og-image.png` (1200 × 630 PNG)
+- 대표 URL: `https://canada-birthcert-ko.mydy.kr/`
+- 사이트맵: `https://canada-birthcert-ko.mydy.kr/sitemap.xml`
+- 공유 이미지: `https://canada-birthcert-ko.mydy.kr/og-image.png` (1200 × 630 PNG)
 
 공유 이미지는 개인정보와 공식 관인 없이 구성합니다. 문구나 디자인 수정 후 다음 명령으로 다시 생성하고 PNG도 함께 커밋합니다.
 
