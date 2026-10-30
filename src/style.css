@@ -1143,7 +1143,7 @@ a {
 .region-options button:focus-visible { outline:3px solid #91b6ac; outline-offset:3px; }
 .paper-bc { background-color:#f5fbfd; background-image:repeating-linear-gradient(65deg,transparent,transparent 8px,#8ab9cf10 9px,transparent 10px); }
 .paper-bc .paper-heading { padding:22px 0 0; min-height:145px; text-align:center; justify-content:flex-end; align-items:flex-start; }
-.bc-province { color:#274b42; font-size:23px; font-weight:700; letter-spacing:1.5px; }
+.bc-province { width:fit-content; color:#274b42; font-family:Arial,sans-serif; font-size:24px; font-weight:800; letter-spacing:2.4px; transform:scaleX(1.08); transform-origin:left center; }
 .paper-bc .doc-title { color:#294a42; }
 .paper-bc .certificate-emblem { filter:sepia(.5) hue-rotate(70deg); }
 .paper-bc .field-sex { grid-row:3; }
@@ -1159,7 +1159,7 @@ a {
 .paper-bc .paper-heading>div { width:73%; text-align:left; padding-left:16px; }
 .paper .bc-corner { position:absolute; top:34px; left:0; width:24%; height:90px; background:repeating-linear-gradient(45deg,#b8cdb8 0 1px,#d6e2cc 1px 6px); clip-path:polygon(0 0,75% 0,100% 50%,75% 100%,0 100%); opacity:.65; pointer-events:none; }
 @media(max-width:760px) {
- .paper-bc .bc-province { font-size:12px; letter-spacing:.3px; }
+ .paper-bc .bc-province { font-size:12px; letter-spacing:.5px; transform:none; }
  .paper-bc .paper-heading>div { padding-left:8px; }
  .paper .bc-corner { top:20px; height:50px; }
 }
