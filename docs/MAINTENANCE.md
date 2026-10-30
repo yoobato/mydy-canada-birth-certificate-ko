@@ -29,7 +29,7 @@ node tests/regions-browser.mjs
 
 ### 도메인 이전 절차
 
-새 도메인 전환을 준비한 상태입니다. 배포 전 실제 DNS·GitHub Pages 연결과 Adsterra 승인 상태를 확인합니다. 기존 서비스는 `https://ab-birthcert-ko.mydy.kr/`에서 운영 중입니다.
+새 도메인의 CNAME을 확인하고 GitHub Pages의 Custom domain을 `canada-birthcert-ko.mydy.kr`로 전환했습니다. 기존 `ab-birthcert-ko.mydy.kr` 주소는 GoDaddy 301 포워딩을 별도로 설정해야 합니다. Adsterra 새 도메인 승인과 광고 코드 이전 여부도 별도 확인합니다.
 
 1. GitHub 계정의 Pages 도메인 인증을 이용해 `mydy.kr` 소유권을 확인합니다. 기존 인증이 있다면 유지합니다.
 2. GoDaddy에서 CNAME `canada-birthcert-ko` → `yoobato.github.io`를 추가합니다. `@`, `calog` 등 다른 레코드는 변경하지 않습니다.

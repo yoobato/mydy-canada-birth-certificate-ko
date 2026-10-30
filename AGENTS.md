@@ -1,7 +1,7 @@
 # Project instructions
 
 - GitHub repository: https://github.com/yoobato/mydy-ab-birth-certificate-ko
-- User approved release of BC and Alberta support. Commit completed changes on `main` and push for GitHub Pages deployment. User approved migration to `canada-birthcert-ko.mydy.kr`. Domain migration is prepared locally; wait for DNS setup and coordinate the GitHub Pages cutover before pushing migration changes. The existing live domain is `ab-birthcert-ko.mydy.kr`; its GoDaddy 301 forwarding must follow successful new-domain HTTPS verification.
+- User approved release of BC and Alberta support. Commit completed changes on `main` and push for GitHub Pages deployment. User approved migration to `canada-birthcert-ko.mydy.kr`. DNS for the new domain is configured and the user authorized the GitHub Pages cutover. Deploy to `canada-birthcert-ko.mydy.kr`. GoDaddy 301 forwarding from `ab-birthcert-ko.mydy.kr` must follow successful new-domain HTTPS verification.
 - User instruction: commit every completed modification to the `main` branch. Run relevant validation first, then commit on `main`. Push to `origin/main` only when deployment is authorized, since it triggers GitHub Pages.
 - Never commit real birth certificates, translated personal documents, actual family information, generated user PDFs, credentials, or browser test outputs.
 - Keep form inputs and PDF generation browser-local. User authorized GA4 G-2TXN5Z7X2G for page views, preview and PDF download events only. Never include form values or PDF contents in analytics. Keep local development untracked. Do not add external translation APIs or persist form data.
