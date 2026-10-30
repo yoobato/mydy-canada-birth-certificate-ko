@@ -16,3 +16,14 @@ test('BC parental certificate requires sex and supports explicit other text',()=
  }
  assert.equal(sexLabel({...bc,sex:'F',sexOther:'X'}),'여');
 });
+
+test('Hangul syllables, compatibility jamo and decomposed jamo are accepted per field',()=>{
+ for(const name of ['ㅁㄴㅇㄹ','김','김하늘']){
+  assert.equal(validate({...sample,registrarKo:name,translator:name}).translator,name);
+ }
+});
+test('invalid fields have independent messages and date errors belong to their field',()=>{
+ try{validate({...sample,registrarKo:'Trevor',translator:'Kim',place:'Calgary'});assert.fail('Expected validation errors');}
+ catch(error){assert.deepEqual(Object.keys(error.errors).sort(),['place','registrarKo','translator']);assert.match(error.errors.registrarKo,/등록관 이름/);assert.ok(!error.errors.registrarKo.includes('번역자'));assert.match(error.errors.translator,/번역자 이름/);}
+ for(const [key,override]of [['registered',{registered:'2024-02-28'}],['issued',{issued:'2024-02-29'}],['birth',{birth:'2024-02-30'}]])assert.throws(()=>validate({...sample,...override}),error=>Boolean(error.errors[key]));
+});

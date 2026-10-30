@@ -24,6 +24,19 @@ for(const [key,value]of Object.entries(values))await page.locator('#'+key).fill(
 await page.locator('#sex').selectOption('F');
 assert.equal(await page.locator('#count').innerText(),'14 / 14');
 async function download(path){const pending=page.waitForEvent('download');await page.locator('#download').click();await (await pending).saveAs(path);}
+await page.locator('#registrarKo').fill('Trevor');
+await page.locator('#translator').fill('Kim');
+await page.locator('#download').click();
+assert.match(await page.locator('#error-registrarKo').innerText(),/총등록관 이름/);
+assert.match(await page.locator('#error-translator').innerText(),/번역자 이름/);
+assert.equal(await page.locator('#registrarKo').getAttribute('aria-invalid'),'true');
+await page.locator('#registrarKo').fill('ㅁㄴㅇㄹ');
+assert.equal(await page.locator('#error-registrarKo').count(),0);
+assert.equal(await page.locator('#error-translator').count(),1);
+await page.locator('#translator').fill('ㅁㄴㅇㄹ');
+await download('tmp/pdfs/bc-jamo.pdf');
+await page.locator('#registrarKo').fill(values.registrarKo);
+await page.locator('#translator').fill(values.translator);
 await download('tmp/pdfs/bc-with-sex.pdf');
 await page.locator('#preview').click();await page.waitForFunction(()=>document.querySelector('#dialog').open);await page.locator('#close').click();
 await page.locator('[data-region="ab"]').click();

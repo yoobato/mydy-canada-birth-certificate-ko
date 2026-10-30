@@ -1177,3 +1177,8 @@ a {
 @media(max-width:760px) { .sex-other small,.certificate-field .sex-other label { font-size:9px; } }
 
 .fields:has(.sex-other:not([hidden])) .field-birth { align-self:start; }
+
+.field-error { color:#a12f28; font-size:11px; line-height:1.6; margin:3px 0 0; }
+.certificate-field>.field-error { grid-column:2; }
+.sex-other .field-error { grid-column:auto; }
+input[aria-invalid="true"],select[aria-invalid="true"] { border-bottom-color:#a12f28; outline:1px solid #a12f28; outline-offset:1px; }
