@@ -6,6 +6,7 @@ const base=process.env.TEST_URL || 'http://127.0.0.1:5178/';
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1200}});const errors=[];page.on('pageerror',e=>errors.push(e.message));const requests=[];page.on('request',r=>requests.push(r.url()));
 await page.route('https://www.googletagmanager.com/**',route=>route.fulfill({contentType:'application/javascript',body:'/* Analytics intercepted for QA; nothing sent to Google. */'}));
+await page.route('https://ko-fi.com/**',route=>route.fulfill({contentType:'text/html',body:'<p>Ko-fi test panel</p>'}));
 const adKeys = ['8a7f9b407df1f0c06734b6d94816e9cd','ff69865290a386d9a2b164b7a7e7f47d','5ea85e7ac7dd2851f7c1125a6f55f978'];
 const adScripts = adKeys.map(key=>'https://bauval.org/22/'+key);
 await page.route('https://bauval.org/**',route=>{
@@ -58,15 +59,17 @@ async function checkAds(width) {
     assert.ok(Math.abs(top.x+top.width-workspace.x-workspace.width)<1,'Top ad right edge must align with form');
   }
 }
-await page.goto(base);await page.locator('[data-region="ab"]').click();await page.evaluate(()=>document.fonts.ready);await checkAds(1440);
+await page.goto(base);await page.locator('#support').click();await page.locator('#supportClose').click();await page.locator('[data-region="ab"]').click();await page.evaluate(()=>document.fonts.ready);await checkAds(1440);
 await page.screenshot({path:'tmp/desktop.png',fullPage:true});
 assert.ok(!requests.includes(adScripts[1]),'Mobile ad must not be loaded on desktop');
 const values={registrarKo:'트레버 버겐',surname:'김',given:'하늘',birth:'2024-02-29',place:'에드먼턴',registration:'TEST-2024-000001',registered:'2024-03-01',issued:'2024-03-05',parent1:'이예시',parent1Place:'대한민국',parent2:'김예시',parent2Place:'대한민국',translator:'김번역',serial:'AB00000000'};
 for(const [key,value]of Object.entries(values))await page.locator('#'+key).fill(value);
 await page.locator('#sex').selectOption('F');assert.equal(await page.locator('#registrarKo').inputValue(),'트레버 버겐');assert.equal(await page.locator('#count').innerText(),'14 / 14');
-await page.locator('#preview').click();await page.waitForFunction(()=>document.querySelector('#dialog').open);await page.locator('#close').click();
+await page.locator('#preview').click();await page.waitForFunction(()=>document.querySelector('#dialog').open);const previewSave=page.waitForEvent('download');await page.locator('#previewLink').click();await previewSave;await page.locator('#close').click();
 const wait=page.waitForEvent('download');await page.locator('#download').click();const download=await wait;await download.saveAs('tmp/example.pdf');
-const events=await page.evaluate(()=>Array.from(window.dataLayer||[]).filter(a=>a[0]==='event').map(a=>a[1]));if(events.length)assert.deepEqual(events,['page_view','translation_preview','pdf_download']);const queued=await page.evaluate(()=>JSON.stringify(Array.from(window.dataLayer||[])));for(const value of Object.values(values))assert.ok(!queued.includes(value));
+const events=await page.evaluate(()=>Array.from(window.dataLayer||[]).filter(a=>a[0]==='event').map(a=>a[1]));if(events.length)assert.deepEqual(events,['page_view','support_click','translation_preview','preview_pdf_download','pdf_download']);
+if(events.length){const regions=await page.evaluate(()=>Array.from(window.dataLayer).filter(a=>a[0]==='event').map(a=>a[2].certificate_region));assert.deepEqual(regions,['bc','bc','ab','ab','ab']);}
+const queued=await page.evaluate(()=>JSON.stringify(Array.from(window.dataLayer||[])));for(const value of Object.values(values))assert.ok(!queued.includes(value));
 await page.locator('#registered').fill('2024-02-28');await page.locator('#download').click();assert.match(await page.locator('#status').innerText(),/순서/);
 await page.locator('#registered').fill('2024-03-01');await page.locator('#registrarKo').fill('Trevor Bergen');await page.locator('#download').click();assert.match(await page.locator('#status').innerText(),/한글/);
 await page.reload();assert.equal(await page.locator('#surname').inputValue(),'');
@@ -76,4 +79,4 @@ for(const width of [1101,1000,800,799,760,390,375,320]){
 }
 await page.setViewportSize({width:390,height:844});await checkAds(390);
 await page.screenshot({path:'tmp/mobile.png',fullPage:true});
-assert.deepEqual(errors,[]);assert.ok(requests.every(url=>url.startsWith(base)||url.startsWith('blob:')||url.startsWith('https://www.googletagmanager.com/gtag/js?id=G-2TXN5Z7X2G')||adScripts.includes(url)||url.startsWith('data:text/html;')||url==='about:blank'));assert.ok(!requests.some(url=>url.includes('googlesyndication.com')));console.log('PASS: isolated advertising, desktop, mobile, privacy, preview, PDF download, validation, reset');await browser.close();
+assert.deepEqual(errors,[]);assert.ok(requests.every(url=>url.startsWith(base)||url.startsWith('blob:')||url.startsWith('https://ko-fi.com/')||url.startsWith('https://www.googletagmanager.com/gtag/js?id=G-2TXN5Z7X2G')||adScripts.includes(url)||url.startsWith('data:text/html;')||url==='about:blank'));assert.ok(!requests.some(url=>url.includes('googlesyndication.com')));console.log('PASS: isolated advertising, desktop, mobile, privacy, preview, PDF download, validation, reset');await browser.close();

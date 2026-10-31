@@ -1,8 +1,8 @@
 export const MEASUREMENT_ID = 'G-2TXN5Z7X2G';
-const EVENTS = new Set(['page_view', 'translation_preview', 'pdf_download']);
+const EVENTS = new Set(['page_view', 'translation_preview', 'pdf_download', 'preview_pdf_download', 'support_click']);
 const PAGE = 'https://canada-birthcert-ko.mydy.kr/';
 
-// Only fixed event names and fixed page metadata enter Analytics. Never pass form data.
+// Only allowlisted event names, region codes and fixed page metadata enter Analytics.
 export function createAnalytics(win, doc, enabled) {
   if (!enabled) return { track() {} };
   win.dataLayer = win.dataLayer || [];
@@ -18,7 +18,7 @@ export function createAnalytics(win, doc, enabled) {
   const metadata = {
     page_location: PAGE,
     page_referrer: '',
-    page_title: 'Alberta Birth Certificate Korean Translation',
+    page_title: '캐나다 출생증명서 번역 | BC·알버타 한글 번역문 PDF',
   };
   gtag('config', MEASUREMENT_ID, {
     ...metadata,
@@ -32,9 +32,9 @@ export function createAnalytics(win, doc, enabled) {
   script.referrerPolicy = 'no-referrer';
   doc.head.appendChild(script);
   return {
-    track(name) {
-      if (!EVENTS.has(name)) return;
-      gtag('event', name, { ...metadata, send_to: MEASUREMENT_ID });
+    track(name, region) {
+      if (!EVENTS.has(name) || !['bc', 'ab'].includes(region)) return;
+      gtag('event', name, { ...metadata, certificate_region: region, send_to: MEASUREMENT_ID });
     },
   };
 }
